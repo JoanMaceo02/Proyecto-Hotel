@@ -4,6 +4,19 @@ from datetime import datetime
 
 
 
+# Create new user
+def create_user(db: Session, user: schemas.UserCreate):
+    db_user = models.User(username=user.username, password=user.password)
+
+    try:
+        db.add(db_user)
+        db.commit()
+        db.refresh(db_user)
+        return db_user
+    except:
+        db.rollback()
+        return {"message": "An error occurred inserting the user into the database."}, 500
+
 # Create new fault
 def create_fault(db: Session, fault: schemas.FaultCreate):
     db_fault = models.Fault(id=fault.id, place=fault.place, room=fault.room, fault_type=fault.fault_type, fault_origin= fault.fault_origin,

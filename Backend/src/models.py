@@ -6,6 +6,18 @@ from sqlalchemy.orm import relationship
 from database import Base
 import datetime
 
+
+class User(Base):
+    __tablename__ = "users"
+    username = Column(String(15), primary_key=True, unique=True, nullable=False)
+    password = Column(String(), nullable=False)
+
+    def __init__(self, username, password):
+        self.username = username
+        self.password = password
+
+
+
 class Fault(Base):
     __tablename__ = "faults"
     id = Column(Integer, primary_key=True, unique=True, nullable=False)

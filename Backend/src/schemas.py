@@ -4,6 +4,18 @@ import re
 from typing import Optional, List
 from datetime import datetime
 
+
+class UserBase(BaseModel):
+    username: str = Field(..., description="username", max_length=24)
+    password: str = Field(..., min_length=8, description="user password")
+
+    class Config:
+        from_attributes = True
+
+class UserCreate(UserBase):
+    pass
+
+
 class FaultBase(BaseModel):
     id: int
     place: str
